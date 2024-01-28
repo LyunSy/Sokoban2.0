@@ -1,11 +1,12 @@
-package model;
+package entity;
 
-public class Player {
+public abstract class Movable {
 	
 	private int x;
 	private int y;
 	
-	public Player(int x, int y) {
+	
+	public Movable(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -24,4 +25,5 @@ public class Player {
 	public void setY(int y) {
 		this.y = y;
 	}
+
 }
