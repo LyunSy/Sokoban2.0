@@ -1,7 +1,5 @@
 package vue;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import entity.*;
@@ -25,11 +23,11 @@ public class Vue extends JFrame {
 	private JButton restartButton;
 
 	public Vue() {
-		this.imageWall = new ImageIcon("src/image/wall.png");
-		this.imageBox = new ImageIcon("src/image/box.png");
-		this.imageGoal = new ImageIcon("src/image/goal.png");
-		this.imageEmptySpace = new ImageIcon("src/image/emptyspace.png");
-		this.imagePlayer = new ImageIcon("src/image/player.png");
+		this.imageWall = new ImageIcon(this.getClass().getResource("/image/wall.png"));
+		this.imageBox = new ImageIcon(this.getClass().getResource("/image/box.png"));
+		this.imageGoal = new ImageIcon(this.getClass().getResource("/image/goal.png"));
+		this.imageEmptySpace = new ImageIcon(this.getClass().getResource("/image/emptySpace.png"));
+		this.imagePlayer = new ImageIcon(this.getClass().getResource("/image/player.png"));
 		this.labelPlayer = new JLabel();
 		this.labelBoxs = new ArrayList<JLabel>();
 
@@ -43,6 +41,9 @@ public class Vue extends JFrame {
 
 	}
 
+	/**
+	 * Initialize the game screen
+	 */
 	public void initView() {
 		setTitle("Sokoban");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,6 +54,11 @@ public class Vue extends JFrame {
 
 	}
 
+	/**
+	 * Initialize Boxs
+	 * 
+	 * @param boxs
+	 */
 	private void initBoxs(ArrayList<Box> boxs) {
 		for (int i = 0; i < boxs.size(); i++) {
 			JLabel label = new JLabel();
@@ -77,8 +83,6 @@ public class Vue extends JFrame {
 					label.setIcon(imageEmptySpace);
 				} else if (map[i][j] == 'x') {
 					label.setIcon(imageGoal);
-				} else if (map[i][j] == '$') {
-					label.setIcon(imageBox);
 				}
 
 				label.setBounds(j * CELLSIZE, i * CELLSIZE, CELLSIZE, CELLSIZE);

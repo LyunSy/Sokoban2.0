@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-
 import entity.Box;
 import entity.Player;
 
@@ -10,78 +9,35 @@ public class Model {
 	private Player player;
 
 	private ArrayList<Box> boxs;
-	
+
 	private int goalReached;
-	
+
 	private int goal;
 
-	private char[][] map2 = { { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-			{ '#', '.', '.', '.', 'x', '#', '.', 'x', '#', '#' }, 
-			{ '#', '.', '.', '#', '#', '.', '.', '.', '.', '#' },
-			{ '#', '.', '.', '.', '.', '.', '.', 'x', '.', '#' },
-			{ '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }, };
-	
-	private char[][] map = {
-		    { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-		    { '#', '#', '#', '#', '#', 'x', 'x', 'x', '.', 'x', 'x', 'x', 'x', '#', '#', '#', '#', '#', '#' },
-		    { '#', '.', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '.', '#', '.', '.', '#', '#', '#' },
-		    { '#', '.', '#', '#', '#', '#', '#', '#', '#', '.', '#', '#', '#', '#', '.', '.', '#', '#', '#' },
-		    { '#', '.', '#', '.', '.', '.', '.', '#', '#', '.', '#', '.', '.', '#', '.', '.', 'x', '.', '#' },
-		    { '#', '.', '#', '.', '.', '.', '.', 'x', 'x', 'x', '#', '.', '.', '#', '.', '.', '#', 'x', '#' },
-		    { '#', '.', '#', '.', '.', '.', '.', '#', '.', '.', '.', 'x', '.', '#', '.', '.', 'x', '.', '#' },
-		    { '#', '.', '#', '.', '.', '#', '#', '#', '.', '#', '#', 'x', '.', '.', '.', '.', '#', 'x', '#' },
-		    { '#', '.', '#', '#', '#', '.', '.', '#', '.', '.', '#', '.', '.', '#', '.', '.', 'x', '.', '#' },
-		    { '#', '.', '#', '.', '.', '.', '.', '#', '.', '.', '#', '#', '#', '#', '.', '.', '#', 'x', '#' },
-		    { '#', '.', '#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#', '.', '.', 'x', '.', '#' },
-		    { '#', '.', '.', '.', '.', '.', '.', '#', '.', '.', '.', '.', '.', '#', '.', '.', '#', 'x', '#' },
-		    { '#', '#', '#', '#', '.', '.', '#', '#', '#', '.', '.', '.', '.', '#', '.', '.', 'x', '.', '#' },
-		    { '#', '#', '.', '.', '.', '.', '.', '.', '.', '.', '.', '#', '#', '#', 'x', 'x', 'x', 'x', '#' },
-		    { '#', '#', '.', '.', '.', '.', '.', '.', '.', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-		    { '#', '#', '.', '.', '.', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-		    { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' },
-		    };
-		    
+	private char[][] map = { { ' ', ' ', '#', '#', '#', '#', '#' },
+			{ ' ', ' ', '#', '.', '.', '.', '#' },
+			{ '#', '#', '#', '.', '#', '.', '#' },
+			{ '#', '.', '.', '.', 'x', '.', '#' },
+			{ '#', '.', 'x', '.', '.', '#', '#' },
+			{ '#', '#', '.', '.', '#', '#', ' ' },
+			{ ' ', '#', '.', '.', '#', ' ', ' ' },
+			{ ' ', '#', '#', '#', '#', ' ', ' ' }, };
+
 	public Model() {
 		initData();
 		countGoal();
 
 	}
-	
+
+	/**
+	 * Initialize elements on the map
+	 */
 	private void initData() {
-		this.player = new Player(2, 14);
+
 		this.boxs = new ArrayList<Box>();
-
-		boxs.add(new Box(2, 8));
-		boxs.add(new Box(2, 11));
-		boxs.add(new Box(3, 9));
-		boxs.add(new Box(4, 14));
-		boxs.add(new Box(6, 14));
-		boxs.add(new Box(8, 14));
-		boxs.add(new Box(10, 14));
-		boxs.add(new Box(12, 14));
-		boxs.add(new Box(7, 13));
-		boxs.add(new Box(5, 4));
-		boxs.add(new Box(6, 4));
-		boxs.add(new Box(5, 5));	
-		boxs.add(new Box(11, 5));
-		boxs.add(new Box(12, 5));
-		boxs.add(new Box(9, 6));
-		boxs.add(new Box(9, 9));
-		boxs.add(new Box(10, 7));
-		
-		boxs.add(new Box(10, 3));
-		boxs.add(new Box(11, 9));
-		boxs.add(new Box(11, 11));
-		boxs.add(new Box(10, 10));
-		boxs.add(new Box(11, 5));
-
-		boxs.add(new Box(13, 6));
-		boxs.add(new Box(13, 3));
-		boxs.add(new Box(13, 8));
-		boxs.add(new Box(13, 9));
-
-
-
+		this.player = new Player(3, 5);
+		boxs.add(new Box(3, 2));
+		boxs.add(new Box(3, 3));
 		this.goalReached = 0;
 	}
 
@@ -97,17 +53,23 @@ public class Model {
 		return this.map;
 	}
 
+	/**
+	 * Count the number of Goal on the map
+	 */
 	private void countGoal() {
 		this.goal = 0;
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
-				if(map[i][j] == 'x') {
+				if (map[i][j] == 'x') {
 					goal++;
 				}
 			}
 		}
 	}
 
+	/**
+	 * Player's movement below
+	 */
 	public void moveUP() {
 		int destX = this.getPlayer().getX() - 1;
 		int destY = this.getPlayer().getY();
@@ -157,26 +119,37 @@ public class Model {
 
 	}
 
+	/**
+	 * Check if the player's movement is valid
+	 * 
+	 * @param newPosX
+	 * @param newPosY
+	 * @param newPosBoxX
+	 * @param newPosBoxY
+	 * @return
+	 */
 	private boolean validMove(int newPosX, int newPosY, int newPosBoxX, int newPosBoxY) {
-
+		// the move had to be inside the map size
 		if (newPosX >= 0 && newPosX < map.length && newPosY >= 0 && newPosY < map[0].length) {
-			Box box = checkCollision(newPosX, newPosY);
-			if (box != null) {
 
-				if (manageCollision(box, newPosBoxX, newPosBoxY)) {
-					
+			Box boxCollision = checkCollision(newPosX, newPosY);
+
+			// if there is a box, manage the collision
+			if (boxCollision != null) {
+
+				if (manageCollision(boxCollision, newPosBoxX, newPosBoxY)) {
+
 					char destBox = map[newPosBoxX][newPosBoxY];
-					
+
 					if (destBox == 'x') {
-		
+
 						goalReached++;
-						box.setGoaled(true);
-					
-					}
-					else if (box.getGoaled()) {
+						boxCollision.setGoaled(true);
+
+					} else if (boxCollision.getGoaled()) {
 
 						goalReached--;
-						box.setGoaled(false);
+						boxCollision.setGoaled(false);
 					}
 					return true;
 				}
@@ -197,6 +170,14 @@ public class Model {
 		return false;
 	}
 
+	/**
+	 * Manage the box's collision
+	 * 
+	 * @param box
+	 * @param newPosBoxX
+	 * @param newPosBoxY
+	 * @return
+	 */
 	private boolean manageCollision(Box box, int newPosBoxX, int newPosBoxY) {
 
 		if (map[newPosBoxX][newPosBoxY] != '#' && checkCollision(newPosBoxX, newPosBoxY) == null) {
@@ -209,6 +190,13 @@ public class Model {
 		return false;
 	}
 
+	/**
+	 * Player check if there is a box
+	 * 
+	 * @param newPosX
+	 * @param newPosY
+	 * @return
+	 */
 	private Box checkCollision(int newPosX, int newPosY) {
 		for (Box box : this.boxs) {
 
@@ -218,11 +206,19 @@ public class Model {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Check is the game is win
+	 * 
+	 * @return
+	 */
 	public boolean isWin() {
 		return goal == goalReached;
 	}
-	
+
+	/**
+	 * resetData for the restart Button
+	 */
 	public void resetData() {
 		this.initData();
 
